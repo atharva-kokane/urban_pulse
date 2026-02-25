@@ -27,7 +27,7 @@ export default function TrafficMonitoring() {
             </div>
           </div>
 
-          <div className="grid gap-8 grid-cols-[2.2fr_1fr] items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-[2.2fr_1fr] gap-6">
             <MapCard />
             <CongestionCard />
           </div>

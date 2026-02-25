@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Sidebar() {
   return (
-    <div className="w-64 h-full bg-[#061226] border-r border-[#1f2a44] flex flex-col">
+    <div className="hidden lg:flex w-64 min-h-screen bg-[#071a2d] border-r border-[#1f2a44] flex-col">
 
  
 

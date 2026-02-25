@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
+
 import Sidebar from "@/components/Sidebar";
 import TopHeader from "@/components/TopHeader";
 import WasteMapCard from "@/components/waste/WasteMapCard";
@@ -5,6 +10,27 @@ import BinStatusCard from "@/components/waste/BinStatusCard";
 import WasteAnalytics from "@/components/waste/WasteAnalytics";
 
 export default function WasteManagement() {
+  const [bins, setBins] = useState([]);
+
+  useEffect(() => {
+    fetchBins();
+  }, []);
+
+  async function fetchBins() {
+  const { data, error } = await supabase
+    .from("waste_bins")
+    .select("*");
+
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+
+  if (error) {
+    console.error("Supabase Error:", error);
+  } else {
+    setBins(data);
+  }
+}
+
   return (
     <div className="h-screen bg-[#061226] text-white flex flex-col">
 
@@ -31,13 +57,13 @@ export default function WasteManagement() {
 
           {/* Top Grid */}
           <div className="grid gap-8 grid-cols-[2.2fr_1fr] items-stretch">
-            <WasteMapCard />
-            <BinStatusCard />
+            <WasteMapCard bins={bins} />
+            <BinStatusCard bins={bins} />
           </div>
 
           {/* Bottom Analytics */}
           <div className="mt-8">
-            <WasteAnalytics />
+            <WasteAnalytics bins={bins} />
           </div>
 
         </div>

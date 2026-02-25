@@ -33,24 +33,24 @@ export default function Dashboard() {
 
         <Sidebar />
 
-        <div className="flex-1 overflow-y-auto p-8 space-y-8">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
 
           <StatsRow />
 
           {/* Traffic + AQI */}
-          <div className="grid grid-cols-[72%_28%] gap-6">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-[72%_28%]">
             <TrafficSection />
             <AQIGauge value={78} />
           </div>
 
           {/* Waste + Alerts */}
-          <div className="grid grid-cols-[72%_28%] gap-6">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-[72%_28%]">
             <WasteSection />
             <AlertsPanel />
           </div>
 
           {/* AI + Automation */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <AIAnalysis />
             <AutomationFeed />
           </div>

@@ -3,6 +3,7 @@
 import { Bell, User } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Menu } from "lucide-react";
 
 export default function TopHeader() {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,10 @@ export default function TopHeader() {
 
   return (
     <div className="flex justify-between items-center px-8 py-4 border-b border-[#1f2a44] bg-[#061226]">
+
+      <button className="lg:hidden text-gray-400">
+  <Menu />
+</button>
 
       {/* Logo */}
       <h1 className="text-xl font-semibold text-cyan-400">
