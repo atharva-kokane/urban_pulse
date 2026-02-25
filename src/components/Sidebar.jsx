@@ -12,10 +12,10 @@ export default function Sidebar() {
       <div className="flex flex-col px-4 gap-2 mt-4">
 
         {/* Active */}
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0f2a36] border border-cyan-500/30 text-cyan-400">
+       <Link href="/"> <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0f2a36] border border-cyan-500/30 text-cyan-400">
           <LayoutDashboard size={18} />
           <span className="font-medium">Dashboard</span>
-        </div>
+        </div></Link>
 
         {/* Normal Items */}
         <Link href="/traffic-monitoring">
@@ -24,26 +24,29 @@ export default function Sidebar() {
   </div>
 </Link>
 
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-[#0f2a36] transition">
-          <Trash2 size={18} />
-          Waste Management
-        </div>
+       <Link href="/waste-management">
+  <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#0f2a36] cursor-pointer">
+    Waste Management
+  </div>
+</Link>
 
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-[#0f2a36] transition">
-          <Wind size={18} />
-          Air Quality
-        </div>
+       <Link href="/air-quality">
+  <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#0f2a36] cursor-pointer">
+    Air Quality
+  </div>
+</Link>
 
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-[#0f2a36] transition">
+        <Link href="/alerts"><div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#0f2a36] cursor-pointer">
           <Bell size={18} />
           Alerts
         </div>
+        </Link>
 
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-[#0f2a36] transition">
+       <Link href="/analytics"> <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#0f2a36] cursor-pointer">
           <BarChart3 size={18} />
           Analytics
         </div>
-
+        </Link>
       </div>
     </div>
   );

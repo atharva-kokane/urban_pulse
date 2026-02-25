@@ -43,3 +43,7 @@ npm install lucide-react recharts
 ```bash
 npm install leaflet react-leaflet
 ```
+
+```bash
+npm install groq-sdk
+```
