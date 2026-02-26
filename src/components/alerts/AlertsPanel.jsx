@@ -1,17 +1,88 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function AlertsPanel() {
 
   const [filter, setFilter] = useState("All");
+  const [alerts, setAlerts] = useState([]);
 
-  const alerts = [
-    { message: "BIN-003 critical level", type: "Critical", time: "2 min ago" },
-    { message: "Heavy traffic in Downtown", type: "Warning", time: "10 min ago" },
-    { message: "Air quality improved", type: "Resolved", time: "1 hour ago" },
-    { message: "Truck route optimized", type: "Resolved", time: "2 hours ago" },
-  ];
+  // Fetch alerts from Supabase
+  async function fetchAlerts() {
+
+    const { data, error } = await supabase
+      .from("alerts")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching alerts:", error);
+      return;
+    }
+
+    // Convert Supabase data to your UI format
+    const formattedAlerts = data.map(alert => ({
+
+      message: alert.message,
+
+      type:
+        alert.status === "critical"
+          ? "Critical"
+          : alert.status === "warning"
+          ? "Warning"
+          : "Resolved",
+
+      time: new Date(alert.created_at).toLocaleString()
+
+    }));
+
+    setAlerts(formattedAlerts);
+
+  }
+
+  useEffect(() => {
+
+    fetchAlerts();
+
+    // Realtime updates
+    const channel = supabase
+      .channel("alerts-live")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "alerts",
+        },
+        (payload) => {
+
+          const newAlert = {
+
+            message: payload.new.message,
+
+            type:
+              payload.new.status === "critical"
+                ? "Critical"
+                : payload.new.status === "warning"
+                ? "Warning"
+                : "Resolved",
+
+            time: new Date(payload.new.created_at).toLocaleString()
+
+          };
+
+          setAlerts(prev => [newAlert, ...prev]);
+
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+
+  }, []);
 
   const filteredAlerts =
     filter === "All"
@@ -79,4 +150,5 @@ export default function AlertsPanel() {
 
     </div>
   );
+
 }

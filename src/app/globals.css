@@ -56,3 +56,17 @@ body {
 .animate-fadeIn {
   animation: fadeIn 0.2s ease-in-out;
 }
+.blink-pin {
+  animation: blinkPin 1s infinite;
+}
+
+.blink-pin img {
+  width: 25px;
+  height: 41px;
+}
+
+@keyframes blinkPin {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.15); }
+  100% { opacity: 1; transform: scale(1); }
+}

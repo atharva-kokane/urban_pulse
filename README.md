@@ -51,3 +51,7 @@ npm install groq-sdk
 ```bash
 npm install @supabase/supabase-js
 ```
+
+```bash
+npm install leaflet react-leaflet
+```
