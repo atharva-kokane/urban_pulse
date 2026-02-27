@@ -1,4 +1,32 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
 export default function AutomationFeed() {
+  const [logs, setLogs] = useState([]);
+
+  useEffect(() => {
+    fetchLogs();
+  }, []);
+
+  async function fetchLogs() {
+    const { data, error } = await supabase
+      .from("automation_logs")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(10);
+
+    if (!error) {
+      setLogs(data);
+    }
+  }
+
   return (
     <div className="bg-[#0B1B33] border border-[#1f2a44]/60 rounded-2xl p-8 flex flex-col">
 
@@ -8,11 +36,13 @@ export default function AutomationFeed() {
 
       <div className="space-y-4 flex-1 overflow-y-auto">
 
-        <FeedItem text="Alert sent to collection unit #3" time="2 min ago" />
-        <FeedItem text="BIN-003 overflow prediction triggered" time="5 min ago" />
-        <FeedItem text="AI analysis completed - Risk MODERATE" time="8 min ago" />
-        <FeedItem text="Route optimization calculated" time="12 min ago" />
-        <FeedItem text="Data sync with IoT sensors completed" time="15 min ago" />
+        {logs.map((log) => (
+          <FeedItem
+            key={log.id}
+            text={`${log.event} - ${log.bin_id}`}
+            time={formatTime(log.created_at)}
+          />
+        ))}
 
       </div>
 
@@ -31,4 +61,19 @@ function FeedItem({ text, time }) {
       <p className="text-xs text-gray-400 mt-1">{time}</p>
     </div>
   );
+}
+
+function formatTime(timestamp) {
+  const diff = Math.floor(
+    (new Date() - new Date(timestamp)) / 60000
+  );
+
+  if (diff < 1) return "Just now";
+  if (diff < 60) return `${diff} min ago`;
+
+  const hours = Math.floor(diff / 60);
+  if (hours < 24) return `${hours} hr ago`;
+
+  const days = Math.floor(hours / 24);
+  return `${days} day ago`;
 }
