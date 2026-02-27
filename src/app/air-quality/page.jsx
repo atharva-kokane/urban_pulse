@@ -1,17 +1,21 @@
+"use client";
+
+import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import TopHeader from "@/components/TopHeader";
-import AQIGauge from "@/components/AQIGauge";
 import PollutionBreakdown from "@/components/air/PollutionBreakdown";
-import AQITrendChart from "@/components/air/AQITrendChart";
-import AreaComparison from "@/components/air/AreaComparison";
 
 export default function AirQuality() {
+
+  const [selectedArea, setSelectedArea] = useState("Downtown");
+
   return (
     <div className="h-screen bg-[#061226] text-white flex flex-col">
 
       <TopHeader />
 
       <div className="flex flex-1 overflow-hidden">
+
         <Sidebar />
 
         <div className="flex-1 overflow-y-auto p-8 space-y-8">
@@ -33,20 +37,37 @@ export default function AirQuality() {
             </div>
           </div>
 
-          {/* Top Grid */}
-          <div className="grid grid-cols-[1fr_1.5fr] gap-8">
-            <AQIGauge value={78} />
-            <PollutionBreakdown />
+          {/* Main Layout */}
+          <div className="grid grid-cols-[320px_1fr] gap-8">
+
+            {/* LEFT PANEL (City only) */}
+            <div className="bg-[#0B1B33] border border-[#1f2a44]/60 rounded-2xl p-6">
+
+              <p className="text-cyan-400 mb-4 text-sm">
+                City
+              </p>
+
+              <div className="bg-[#0e1f35] p-4 rounded-xl border border-[#1f2a44]/40">
+                <p className="text-xl font-semibold text-cyan-400">
+                  Pune
+                </p>
+              </div>
+
+            </div>
+
+
+            {/* RIGHT PANEL */}
+            <PollutionBreakdown
+              selectedArea={selectedArea}
+              setSelectedArea={setSelectedArea}
+            />
+
           </div>
 
-          {/* Trend Chart */}
-          <AQITrendChart />
-
-          {/* Area Comparison */}
-          <AreaComparison />
-
         </div>
+
       </div>
+
     </div>
   );
 }
