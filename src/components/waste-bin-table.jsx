@@ -15,6 +15,7 @@ import { Eye } from "lucide-react"
 import { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabaseClient"
 
+
 function StatusBadge({ status }) {
   const styles = {
     Critical: "bg-destructive text-destructive-foreground",

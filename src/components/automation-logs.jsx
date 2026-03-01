@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { automationLogs } from "@/lib/data"
 
+
 export function AutomationLogs() {
   return (
     <Card>

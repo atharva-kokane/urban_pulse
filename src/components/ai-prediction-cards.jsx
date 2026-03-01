@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge"
 function getSeverityStyle(severity) {
 
   switch (severity) {
-
     case "high":
       return "bg-destructive text-destructive-foreground"
 

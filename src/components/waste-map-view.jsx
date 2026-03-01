@@ -12,6 +12,7 @@ const binPositions = [
   { x: 70, y: 75 },
 ]
 
+
 // color based on status
 function getPinColor(status, fillLevel) {
 

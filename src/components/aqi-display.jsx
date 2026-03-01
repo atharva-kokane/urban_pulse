@@ -12,6 +12,7 @@ function getAqiInfo(aqi) {
   return { label: "Very Unhealthy", color: "#7C3AED", bg: "bg-purple-50" }
 }
 
+
 export function AqiDisplay() {
 
   const [aqi, setAqi] = useState(0)

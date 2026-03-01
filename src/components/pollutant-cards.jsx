@@ -13,6 +13,7 @@ function getStatus(value, limit) {
   return "Poor"
 }
 
+
 function getStatusStyle(status) {
   switch (status) {
     case "Good":

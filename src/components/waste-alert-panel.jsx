@@ -14,6 +14,7 @@ export function WasteAlertPanel() {
 
     fetchCriticalBins()
 
+    
     // realtime updates
     const channel = supabase
       .channel("critical_bins_changes")
